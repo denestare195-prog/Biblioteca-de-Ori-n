@@ -83,7 +83,7 @@ if "libros" not in st.session_state:
             "id": 11,
             "titulo": "Sociedad de la información",
             "autor": "José Antonio Moreiro González",
-            "portada": "",
+            "portada": "info.png",
             "archivo": "Sociedad de la información-Moreiro.pdf",
         },
         {
