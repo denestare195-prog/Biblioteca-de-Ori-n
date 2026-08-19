@@ -204,4 +204,4 @@ elif menu == "Panel de Autor":
                         st.session_state.pendientes.pop(i)
                         st.warning(f"Aporte rechazado.")
                         st.rerun()
-                st.divider()}
+                st.divider()
