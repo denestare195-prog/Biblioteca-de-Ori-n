@@ -6,90 +6,90 @@ st.set_page_config(
     page_title="Biblioteca de Economía", page_icon="📚", layout="wide"
 )
 
-# Inicializar el estado de la sesión con los libros reales subidos a GitHub
+# Inicializar el estado de la sesión con los libros y autores reales
 if "libros" not in st.session_state:
     st.session_state.libros = [
         {
             "id": 1,
             "titulo": "Brics",
-            "autor": "Nes",
+            "autor": "Dr. C. Roberto Muñoz González & Dr. C. Bonifácio Vissetaca",
             "portada": "https://picsum.photos/seed/brics/150/200",
             "archivo": "Brics.pdf",
         },
         {
             "id": 2,
             "titulo": "Capitalismo actual",
-            "autor": "Dabat",
+            "autor": "Alejandro Dabat, Jorge Hernández & Canek Vega",
             "portada": "https://picsum.photos/seed/capitalismo/150/200",
             "archivo": "Capitalismo actual-Dabat.pdf",
         },
         {
             "id": 3,
             "titulo": "Desigualdad",
-            "autor": "Ovejero",
+            "autor": "Anastasio Ovejero",
             "portada": "https://picsum.photos/seed/desigualdad/150/200",
             "archivo": "Desigualdad-Ovejero.pdf",
         },
         {
             "id": 4,
             "titulo": "El caso del Perú",
-            "autor": "Nes",
+            "autor": "José Matos Mar",
             "portada": "https://picsum.photos/seed/peru1/150/200",
             "archivo": "El caso del Perú.pdf",
         },
         {
             "id": 5,
             "titulo": "Estado Nación e Identidad Nacional",
-            "autor": "Nes",
+            "autor": "Sonia García Segura",
             "portada": "https://picsum.photos/seed/estado/150/200",
             "archivo": "Estado Nación e Identidad Nacional.pdf",
         },
         {
             "id": 6,
             "titulo": "Historia e Identidad del Perú",
-            "autor": "Nes",
+            "autor": "Oswaldo Holguín Callo",
             "portada": "https://picsum.photos/seed/historia/150/200",
             "archivo": "Historia e Identidad del Perú.pdf",
         },
         {
             "id": 7,
             "titulo": "La nueva corrupción en el Perú",
-            "autor": "Nes",
+            "autor": "Óscar Ugarteche Galarza",
             "portada": "https://picsum.photos/seed/corrupcion/150/200",
             "archivo": "La nueva corrupción en el Perú.pdf",
         },
         {
             "id": 8,
             "titulo": "Nuevo orden",
-            "autor": "Palacios",
+            "autor": "Juan José Palacios L.",
             "portada": "https://picsum.photos/seed/orden/150/200",
             "archivo": "Nuevo orden-Palacios.pdf",
         },
         {
             "id": 9,
             "titulo": "Oligarquía en el Perú",
-            "autor": "Nes",
+            "autor": "Dennis Gilbert",
             "portada": "https://picsum.photos/seed/oligarquia/150/200",
             "archivo": "Oligarquía en el Perú.pdf",
         },
         {
             "id": 10,
             "titulo": "Realidad Peruana",
-            "autor": "Nes",
+            "autor": "Abelardo Hurtado, Wadson Pinchi & Norman Coronel",
             "portada": "https://picsum.photos/seed/realidad/150/200",
             "archivo": "Realidad Peruana.pdf",
         },
         {
             "id": 11,
             "titulo": "Sociedad de la información",
-            "autor": "Moreiro",
+            "autor": "José Antonio Moreiro González",
             "portada": "https://picsum.photos/seed/sociedad1/150/200",
             "archivo": "Sociedad de la información-Moreiro.pdf",
         },
         {
             "id": 12,
             "titulo": "Sociedad del conocimiento",
-            "autor": "Marredo",
+            "autor": "Adriana Marrero",
             "portada": "https://picsum.photos/seed/sociedad2/150/200",
             "archivo": "Sociedad del conocimiento-Marredo.pdf",
         },
@@ -129,24 +129,24 @@ if menu == "Ver Biblioteca":
 
         for i, libro in enumerate(libros_filtrados):
             with cols[i % 3]:
-                st.image(libro["portada"], use_container_width=True)
-                st.subheader(libro["titulo"])
-                st.write(f"**Autor:** {libro['autor']}")
+                # Contenedor con altura fija para evitar que se desalineen las líneas
+                with st.container(height=520, border=True):
+                    st.image(libro["portada"], use_container_width=True)
+                    st.subheader(libro["titulo"])
+                    st.write(f"**Autor:** {libro['autor']}")
 
-                # Botón interactivo y descarga real habilitada
-                if os.path.exists(libro["archivo"]):
-                    with open(libro["archivo"], "rb") as archivo_pdf:
-                        st.download_button(
-                            label=f"📥 Descargar PDF",
-                            data=archivo_pdf,
-                            file_name=libro["archivo"],
-                            mime="application/pdf",
-                            key=f"download_{libro['id']}"
-                        )
-                else:
-                    st.error("⚠️ Archivo no encontrado en el servidor.")
-                
-                st.divider()
+                    # Botón interactivo y descarga real habilitada
+                    if os.path.exists(libro["archivo"]):
+                        with open(libro["archivo"], "rb") as archivo_pdf:
+                            st.download_button(
+                                label=f"📥 Descargar PDF",
+                                data=archivo_pdf,
+                                file_name=libro["archivo"],
+                                mime="application/pdf",
+                                key=f"download_{libro['id']}"
+                            )
+                    else:
+                        st.error("⚠️ Archivo no encontrado.")
 
 # -------------------------------------------------------------
 # 2. SUGERIR APORTE
