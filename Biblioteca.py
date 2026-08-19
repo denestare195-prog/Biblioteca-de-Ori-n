@@ -1,6 +1,5 @@
 import os
 import base64
-import textwrap
 import streamlit as st
 
 # =============================================================
@@ -17,23 +16,19 @@ os.makedirs(COVERS_DIR, exist_ok=True)
 os.makedirs(BOOKS_DIR, exist_ok=True)
 
 PORTADA_DEFECTO = "https://placehold.co/220x320/181818/e50914?text=Sin+Portada"
-MAX_PDF_EMBED_MB = 25  # límite de seguridad para incrustar PDF como data-uri
-
+MAX_PDF_EMBED_MB = 25
 
 # =============================================================
 # FUNCIONES AUXILIARES
 # =============================================================
 def archivo_a_base64(ruta):
-    """Lee un archivo y lo devuelve en base64. Vacío si no existe."""
     try:
         with open(ruta, "rb") as f:
             return base64.b64encode(f.read()).decode()
     except (FileNotFoundError, IsADirectoryError):
         return ""
 
-
 def obtener_imagen_src(nombre_archivo):
-    """Devuelve el src (data-uri) de la portada o una imagen por defecto."""
     if not nombre_archivo:
         return PORTADA_DEFECTO
     ruta = os.path.join(COVERS_DIR, nombre_archivo)
@@ -44,9 +39,7 @@ def obtener_imagen_src(nombre_archivo):
     b64 = archivo_a_base64(ruta)
     return f"data:{mime};base64,{b64}" if b64 else PORTADA_DEFECTO
 
-
 def obtener_pdf_href(nombre_archivo):
-    """Devuelve un data-uri para descargar el PDF, o '#' si no aplica."""
     if not nombre_archivo:
         return "#"
     ruta = os.path.join(BOOKS_DIR, nombre_archivo)
@@ -57,18 +50,17 @@ def obtener_pdf_href(nombre_archivo):
     b64 = archivo_a_base64(ruta)
     return f"data:application/pdf;base64,{b64}" if b64 else "#"
 
-
 def escapar(texto):
-    """Escapa comillas para insertar de forma segura dentro de atributos HTML."""
     return (texto or "").replace('"', "&quot;").replace("'", "&#39;")
-
 
 # =============================================================
 # ESTILOS Y JS (carrusel horizontal estilo Netflix)
 # =============================================================
-st.markdown(textwrap.dedent("""
+st.markdown(
+    """
 <style>
     #MainMenu, footer {visibility: hidden;}
+    .block-container {padding-top: 1rem;}
 
     .fila-container {
         margin-bottom: 34px;
@@ -86,6 +78,7 @@ st.markdown(textwrap.dedent("""
         position: relative;
         display: flex;
         align-items: center;
+        width: 100%;
     }
     .carousel-track {
         display: flex;
@@ -95,6 +88,7 @@ st.markdown(textwrap.dedent("""
         padding: 6px 4px 14px 4px;
         scrollbar-width: none;
         -ms-overflow-style: none;
+        flex: 1;
     }
     .carousel-track::-webkit-scrollbar {
         display: none;
@@ -109,6 +103,7 @@ st.markdown(textwrap.dedent("""
         border: 1px solid #262626;
         display: flex;
         flex-direction: column;
+        cursor: pointer;
     }
     .netflix-card:hover {
         transform: scale(1.06);
@@ -164,6 +159,9 @@ st.markdown(textwrap.dedent("""
         text-decoration: none;
         display: block;
         transition: background 0.2s;
+        border: none;
+        cursor: pointer;
+        width: 100%;
     }
     .download-btn:hover {
         background-color: #f6121d;
@@ -181,15 +179,33 @@ st.markdown(textwrap.dedent("""
         font-size: 22px;
         cursor: pointer;
         padding: 0;
-        width: 34px;
-        height: 60px;
+        width: 40px;
+        height: 70px;
         z-index: 10;
         border-radius: 4px;
         flex-shrink: 0;
         transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 4px;
     }
     .scroll-btn:hover {
         background: rgba(229,9,20,0.9);
+    }
+    /* Responsive: en móviles los botones son más pequeños */
+    @media (max-width: 768px) {
+        .scroll-btn {
+            width: 32px;
+            height: 55px;
+            font-size: 18px;
+        }
+        .netflix-card {
+            flex: 0 0 140px;
+        }
+        .netflix-card img {
+            height: 200px;
+        }
     }
 </style>
 
@@ -197,7 +213,7 @@ st.markdown(textwrap.dedent("""
 function scrollCarousel(direction, trackId) {
     const track = document.getElementById(trackId);
     if (!track) return;
-    const scrollAmount = track.clientWidth * 0.8;
+    const scrollAmount = track.clientWidth * 0.75;
     if (direction === 'left') {
         if (track.scrollLeft <= 5) {
             track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
@@ -213,7 +229,9 @@ function scrollCarousel(direction, trackId) {
     }
 }
 </script>
-"""), unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 # =============================================================
 # ESTADO INICIAL
@@ -240,16 +258,13 @@ if "pendientes" not in st.session_state:
 if "orden_categorias" not in st.session_state:
     st.session_state.orden_categorias = ["Realidad Nacional"]
 
-
 def registrar_categoria(categoria):
     if categoria and categoria not in st.session_state.orden_categorias:
         st.session_state.orden_categorias.append(categoria)
 
-
 def siguiente_id():
     ids = [l["id"] for l in st.session_state.libros] + [p["id"] for p in st.session_state.pendientes]
     return max(ids, default=0) + 1
-
 
 # =============================================================
 # TÍTULO Y MENÚ
@@ -261,7 +276,7 @@ menu = st.sidebar.selectbox(
 )
 
 # -------------------------------------------------------------
-# 1. VER BIBLIOTECA
+# 1. VER BIBLIOTECA (carrusel tipo Netflix)
 # -------------------------------------------------------------
 if menu == "Ver Biblioteca":
     busqueda = st.text_input("🔍 Buscar por título o autor", "").strip().lower()
@@ -309,18 +324,21 @@ if menu == "Ver Biblioteca":
                 </div>
                 """
 
-            st.markdown(textwrap.dedent(f"""
+            st.markdown(
+                f"""
                 <div class="fila-container">
                     <div class="fila-titulo">📌 {categoria}</div>
                     <div class="carousel-wrapper">
-                        <button class="scroll-btn" onclick="scrollCarousel('left', '{track_id}')">❮</button>
+                        <button class="scroll-btn" type="button" onclick="scrollCarousel('left', '{track_id}')">❮</button>
                         <div class="carousel-track" id="{track_id}">
                             {cards_html}
                         </div>
-                        <button class="scroll-btn" onclick="scrollCarousel('right', '{track_id}')">❯</button>
+                        <button class="scroll-btn" type="button" onclick="scrollCarousel('right', '{track_id}')">❯</button>
                     </div>
                 </div>
-                """), unsafe_allow_html=True)
+                """,
+                unsafe_allow_html=True,
+            )
 
 # -------------------------------------------------------------
 # 2. SUGERIR APORTE
@@ -385,7 +403,7 @@ elif menu == "Panel de Autor":
     if not st.session_state.pendientes:
         st.info("No hay aportes pendientes en este momento. ¡Todo al día!")
     else:
-        for aporte in list(st.session_state.pendientes):
+        for i, aporte in enumerate(list(st.session_state.pendientes)):
             with st.container(border=True):
                 col1, col2, col3 = st.columns([2, 2, 1])
                 with col1:
