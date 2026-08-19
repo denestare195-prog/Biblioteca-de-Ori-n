@@ -7,32 +7,15 @@ st.set_page_config(
     page_title="Biblioteca de Economía", page_icon="📚", layout="wide"
 )
 
-# Funciones auxiliares para codificar archivos a Base64 de forma segura
-def archivo_a_base64(ruta):
-    if os.path.exists(ruta):
-        with open(ruta, "rb") as f:
-            return base64.b64encode(f.read()).decode()
-    return ""
-
-def obtener_imagen_src(ruta):
-    if ruta and os.path.exists(ruta):
-        ext = ruta.split(".")[-1].lower()
-        mime = "image/png" if ext == "png" else "image/jpeg"
-        b64 = archivo_a_base64(ruta)
-        if b64:
-            return f"data:{mime};base64,{b64}"
-    return "https://picsum.photos/seed/economia/150/220"
-
-def obtener_pdf_link(ruta):
-    if ruta and os.path.exists(ruta):
-        b64 = archivo_a_base64(ruta)
-        if b64:
-            return f"data:application/pdf;base64,{b64}"
-    return "#"
-
-# Estilos CSS y JavaScript personalizados para el carrusel horizontal con bucle y tarjetas compactas
+# Estilos CSS para ocultar la barra superior, el menú de compartir/cuentas y dar formato compacto tipo Netflix
 st.markdown("""
 <style>
+    /* Ocultar completamente la barra superior de Streamlit (monito de accesibilidad, deploy, compartir, GitHub, etc.) */
+    header {visibility: hidden !important;}
+    #MainMenu {visibility: hidden !important;}
+    .stApp > header {display: none !important;}
+    footer {visibility: hidden !important;}
+    
     .main-container {
         padding: 5px 0;
         margin-bottom: 25px;
@@ -165,7 +148,30 @@ function scrollCarousel(direction, trackId) {
 </script>
 """, unsafe_allow_html=True)
 
-# Inicializar los libros con su respectiva categoría "Realidad Nacional"
+# Funciones auxiliares para codificar archivos
+def archivo_a_base64(ruta):
+    if os.path.exists(ruta):
+        with open(ruta, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    return ""
+
+def obtener_imagen_src(ruta):
+    if ruta and os.path.exists(ruta):
+        ext = ruta.split(".")[-1].lower()
+        mime = "image/png" if ext == "png" else "image/jpeg"
+        b64 = archivo_a_base64(ruta)
+        if b64:
+            return f"data:{mime};base64,{b64}"
+    return "https://picsum.photos/seed/economia/150/220"
+
+def obtener_pdf_link(ruta):
+    if ruta and os.path.exists(ruta):
+        b64 = archivo_a_base64(ruta)
+        if b64:
+            return f"data:application/pdf;base64,{b64}"
+    return "#"
+
+# Inicializar los libros en la sesión
 if "libros" not in st.session_state:
     st.session_state.libros = [
         {"id": 1, "titulo": "Brics", "autor": "Dr. C. Roberto Muñoz González & Dr. C. Bonifácio Vissetaca", "portada": "brics.png", "archivo": "Brics.pdf", "categoria": "Realidad Nacional"},
@@ -185,7 +191,7 @@ if "libros" not in st.session_state:
 # Título principal
 st.title("📚 Biblioteca Interactiva de Economía")
 
-# Menú lateral limpio
+# Menú lateral
 menu = st.sidebar.selectbox(
     "Menú de Navegación", ["Ver Biblioteca", "Panel de Autor"]
 )
@@ -194,8 +200,6 @@ menu = st.sidebar.selectbox(
 # 1. VER BIBLIOTECA
 # -------------------------------------------------------------
 if menu == "Ver Biblioteca":
-    st.markdown("### Estante de Cursos")
-    
     busqueda = st.text_input("🔍 Buscar por título o autor", "").lower()
 
     libros_filtrados = [
@@ -206,7 +210,6 @@ if menu == "Ver Biblioteca":
     if not libros_filtrados:
         st.warning("No se encontraron libros que coincidan con la búsqueda.")
     else:
-        # Agrupamos por categoría ("Realidad Nacional")
         categorias = sorted(list(set(l["categoria"] for l in libros_filtrados)))
 
         for idx, categoria in enumerate(categorias):
@@ -232,7 +235,6 @@ if menu == "Ver Biblioteca":
                 </div>
                 """
 
-            # Renderizar carrusel horizontal con flechas y bucle infinito
             st.markdown(f"""
             <div class="main-container">
                 <div class="section-title">📌 {categoria}</div>
