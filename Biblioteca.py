@@ -6,38 +6,78 @@ st.set_page_config(
     page_title="Biblioteca de Economía", page_icon="📚", layout="wide"
 )
 
-# Estilos CSS para simular el desplazamiento horizontal tipo Netflix
+# Estilos CSS avanzados para el scroll horizontal estilo Netflix
 st.markdown("""
 <style>
+    .netflix-category {
+        margin-bottom: 30px;
+    }
+    .netflix-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
     .netflix-row {
         display: flex;
         overflow-x: auto;
-        gap: 20px;
-        padding-bottom: 15px;
+        gap: 16px;
+        padding-bottom: 10px;
         scrollbar-width: thin;
+        scrollbar-color: #555 #1e1e1e;
     }
     .netflix-row::-webkit-scrollbar {
-        height: 8px;
+        height: 6px;
     }
     .netflix-row::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 4px;
+        background: #555;
+        border-radius: 3px;
     }
     .netflix-card {
-        flex: 0 0 220px;
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 10px;
-        padding: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        flex: 0 0 160px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        transition: transform 0.2s;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
+    .netflix-card:hover {
+        transform: scale(1.05);
+    }
+    .netflix-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+    .card-info {
+        padding: 10px;
+    }
+    .card-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #ffffff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 4px;
+    }
+    .card-author {
+        font-size: 11px;
+        color: #b0b0b0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# Inicializar el estado de la sesión con los libros, autores y sus categorías
+# Inicializar el estado de la sesión con los libros, autores, portadas y categorías
 if "libros" not in st.session_state:
     st.session_state.libros = [
         {
@@ -154,7 +194,7 @@ menu = st.sidebar.selectbox(
 # -------------------------------------------------------------
 if menu == "Ver Biblioteca":
     st.header("Estante de Libros")
-    st.write("Desliza horizontalmente en cada categoría para explorar los títulos y descargarlos.")
+    st.write("Explora las categorías y desliza horizontalmente para ver todos los títulos.")
 
     # Barra de búsqueda global
     busqueda = st.text_input("🔍 Buscar por título o autor", "").lower()
@@ -167,60 +207,49 @@ if menu == "Ver Biblioteca":
     if not libros_filtrados:
         st.warning("No se encontraron libros que coincidan con la búsqueda.")
     else:
-        # Obtener categorías únicas presentes en los libros filtrados
         categorias = sorted(list(set(l["categoria"] for l in libros_filtrados)))
 
         for categoria in categorias:
-            st.subheader(f"📌 {categoria}")
             libros_cat = [l for l in libros_filtrados if l["categoria"] == categoria]
-
-            # Contenedor con scroll horizontal estilo Netflix
-            cols_html = '<div class="netflix-row">'
+            
+            # Renderizado de la categoría y su contenedor horizontal
+            st.markdown(f"""
+            <div class="netflix-category">
+                <div class="netflix-title">🔥 {categoria}</div>
+                <div class="netflix-row">
+            """, unsafe_allow_html=True)
+            
             for libro in libros_cat:
-                # Renderizamos las tarjetas en HTML/Streamlit de forma fluida
-                pass # Manejaremos la estructura visual de filas mediante contenedores personalizados abajo
-            
-            # Renderizado adaptado para mantener los botones de Streamlit funcionales por cada fila
-            cols = st.columns(len(libros_cat))
-            
-            # Usamos un contenedor con desplazamiento horizontal personalizado
-            with st.container():
-                # Inyectamos un contenedor scrollable con columnas adentro
-                st.markdown('<div class="netflix-row">', unsafe_allow_html=True)
+                img_path = libro["portada"] if os.path.exists(libro["portada"]) else "https://picsum.photos/seed/default/150/200"
+                st.markdown(f"""
+                    <div class="netflix-card">
+                        <img src="{img_path}" alt="{libro['titulo']}">
+                        <div class="card-info">
+                            <div class="card-title" title="{libro['titulo']}">{libro['titulo']}</div>
+                            <div class="card-author" title="{libro['autor']}">Autor: {libro['autor']}</div>
+                        </div>
+                    </div>
+                """, unsafe_allow_html=True)
                 
-                for libro in libros_cat:
-                    with st.container():
-                        st.markdown(f"""
-                        <div class="netflix-card">
-                            <div>
-                        """, unsafe_allow_html=True)
-                        
-                        if os.path.exists(libro["portada"]):
-                            st.image(libro["portada"], use_container_width=True)
-                        else:
-                            # Imagen por defecto si no existe la portada local
-                            st.image("https://picsum.photos/seed/default/150/200", use_container_width=True)
-                            
-                        st.markdown(f"**{libro['titulo']}**", unsafe_allow_html=True)
-                        st.caption(f"Autor: {libro['autor']}")
-                        
-                        st.markdown("</div><div>", unsafe_allow_html=True)
+            st.markdown("</div></div>", unsafe_allow_html=True)
+
+            # Botones de descarga organizados debajo de cada sección para mantener la funcionalidad interactiva
+            with st.expander(f"📥 Opciones de descarga para: {categoria}"):
+                cols = st.columns(min(len(libros_cat), 3))
+                for idx, libro in enumerate(libros_cat):
+                    with cols[idx % 3]:
+                        st.write(f"**{libro['titulo']}**")
                         if os.path.exists(libro["archivo"]):
                             with open(libro["archivo"], "rb") as archivo_pdf:
                                 st.download_button(
-                                    label="📥 Descargar",
+                                    label=f"Descargar PDF",
                                     data=archivo_pdf,
                                     file_name=libro["archivo"],
                                     mime="application/pdf",
                                     key=f"download_{libro['id']}"
                                 )
                         else:
-                            st.error("⚠️ No hallado")
-                        st.markdown("</div></div>", unsafe_allow_html=True)
-                
-                st.markdown('</div>', unsafe_allow_html=True)
-            
-            st.markdown("---")
+                            st.error("⚠️ Archivo no encontrado.")
 
 # -------------------------------------------------------------
 # 2. SUGERIR APORTE
