@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 
 # Configuración de la página
@@ -5,36 +6,92 @@ st.set_page_config(
     page_title="Biblioteca de Economía", page_icon="📚", layout="wide"
 )
 
-# Inicializar el estado de la sesión para persistir datos
+# Inicializar el estado de la sesión con los libros reales subidos a GitHub
 if "libros" not in st.session_state:
     st.session_state.libros = [
         {
             "id": 1,
-            "titulo": "Economía 4.0",
+            "titulo": "Brics",
             "autor": "Nes",
-            "portada": "https://picsum.photos/seed/econ1/150/200",
-            "archivo": "economia_4.pdf",
+            "portada": "https://picsum.photos/seed/brics/150/200",
+            "archivo": "Brics.pdf",
         },
         {
             "id": 2,
-            "titulo": "Microeconomía Avanzada",
-            "autor": "Nes",
-            "portada": "https://picsum.photos/seed/econ2/150/200",
-            "archivo": "micro_avanzada.pdf",
+            "titulo": "Capitalismo actual",
+            "autor": "Dabat",
+            "portada": "https://picsum.photos/seed/capitalismo/150/200",
+            "archivo": "Capitalismo actual-Dabat.pdf",
         },
         {
             "id": 3,
-            "titulo": "Realidad Nacional",
-            "autor": "Nes",
-            "portada": "https://picsum.photos/seed/econ3/150/200",
-            "archivo": "realidad_nacional.pdf",
+            "titulo": "Desigualdad",
+            "autor": "Ovejero",
+            "portada": "https://picsum.photos/seed/desigualdad/150/200",
+            "archivo": "Desigualdad-Ovejero.pdf",
         },
         {
             "id": 4,
-            "titulo": "Macroeconomía Global",
+            "titulo": "El caso del Perú",
             "autor": "Nes",
-            "portada": "https://picsum.photos/seed/econ4/150/200",
-            "archivo": "macro_global.pdf",
+            "portada": "https://picsum.photos/seed/peru1/150/200",
+            "archivo": "El caso del Perú.pdf",
+        },
+        {
+            "id": 5,
+            "titulo": "Estado Nación e Identidad Nacional",
+            "autor": "Nes",
+            "portada": "https://picsum.photos/seed/estado/150/200",
+            "archivo": "Estado Nación e Identidad Nacional.pdf",
+        },
+        {
+            "id": 6,
+            "titulo": "Historia e Identidad del Perú",
+            "autor": "Nes",
+            "portada": "https://picsum.photos/seed/historia/150/200",
+            "archivo": "Historia e Identidad del Perú.pdf",
+        },
+        {
+            "id": 7,
+            "titulo": "La nueva corrupción en el Perú",
+            "autor": "Nes",
+            "portada": "https://picsum.photos/seed/corrupcion/150/200",
+            "archivo": "La nueva corrupción en el Perú.pdf",
+        },
+        {
+            "id": 8,
+            "titulo": "Nuevo orden",
+            "autor": "Palacios",
+            "portada": "https://picsum.photos/seed/orden/150/200",
+            "archivo": "Nuevo orden-Palacios.pdf",
+        },
+        {
+            "id": 9,
+            "titulo": "Oligarquía en el Perú",
+            "autor": "Nes",
+            "portada": "https://picsum.photos/seed/oligarquia/150/200",
+            "archivo": "Oligarquía en el Perú.pdf",
+        },
+        {
+            "id": 10,
+            "titulo": "Realidad Peruana",
+            "autor": "Nes",
+            "portada": "https://picsum.photos/seed/realidad/150/200",
+            "archivo": "Realidad Peruana.pdf",
+        },
+        {
+            "id": 11,
+            "titulo": "Sociedad de la información",
+            "autor": "Moreiro",
+            "portada": "https://picsum.photos/seed/sociedad1/150/200",
+            "archivo": "Sociedad de la información-Moreiro.pdf",
+        },
+        {
+            "id": 12,
+            "titulo": "Sociedad del conocimiento",
+            "autor": "Marredo",
+            "portada": "https://picsum.photos/seed/sociedad2/150/200",
+            "archivo": "Sociedad del conocimiento-Marredo.pdf",
         },
     ]
 
@@ -76,10 +133,18 @@ if menu == "Ver Biblioteca":
                 st.subheader(libro["titulo"])
                 st.write(f"**Autor:** {libro['autor']}")
 
-                # Botón interactivo
-                if st.button("Ver Detalles", key=f"btn_{libro['id']}"):
-                    st.success(f"Seleccionaste: {libro['titulo']}")
-                    st.markdown(f"📥 Proximamente {libro['archivo']}(#)")
+                # Botón interactivo y descarga real habilitada
+                if os.path.exists(libro["archivo"]):
+                    with open(libro["archivo"], "rb") as archivo_pdf:
+                        st.download_button(
+                            label=f"📥 Descargar PDF",
+                            data=archivo_pdf,
+                            file_name=libro["archivo"],
+                            mime="application/pdf",
+                            key=f"download_{libro['id']}"
+                        )
+                else:
+                    st.error("⚠️ Archivo no encontrado en el servidor.")
                 
                 st.divider()
 
@@ -139,4 +204,4 @@ elif menu == "Panel de Autor":
                         st.session_state.pendientes.pop(i)
                         st.warning(f"Aporte rechazado.")
                         st.rerun()
-                st.divider()
+                st.divider()}
