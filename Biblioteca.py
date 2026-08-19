@@ -2,6 +2,7 @@ import os
 import re
 import base64
 import streamlit as st
+import streamlit.components.v1 as components
 
 # =============================================================
 # CONFIGURACIÓN GENERAL
@@ -97,16 +98,32 @@ def escapar(texto):
 
 
 # =============================================================
-# ESTILOS Y JS (carrusel horizontal estilo Netflix)
+# ESTILOS GENERALES (sin JS — esto sí puede ir por st.markdown)
 # =============================================================
 st.markdown(
     """
 <style>
     #MainMenu, footer {visibility: hidden;}
+</style>
+""",
+    unsafe_allow_html=True,
+)
 
-    .fila-container {
-        margin-bottom: 34px;
-    }
+# =============================================================
+# CARRUSEL ESTILO NETFLIX
+#
+# IMPORTANTE: este bloque se renderiza con components.html() y NO con
+# st.markdown(unsafe_allow_html=True). Motivo del bug original: cuando el
+# HTML se inyecta vía innerHTML (que es lo que hace st.markdown por dentro),
+# los navegadores IGNORAN cualquier <script> por seguridad — nunca se
+# ejecutaba, por eso los botones de flecha aparecían pero no hacían nada al
+# hacer clic. components.html() sí crea un <iframe> con un documento real,
+# donde el <script> se ejecuta con normalidad.
+# =============================================================
+CARRUSEL_CSS = """
+<style>
+    body { margin: 0; background: transparent; font-family: "Source Sans Pro", sans-serif; }
+    .fila-container { margin-bottom: 30px; }
     .fila-titulo {
         font-size: 21px;
         font-weight: 700;
@@ -122,13 +139,12 @@ st.markdown(
         align-items: center;
         gap: 6px;
         width: 100%;
+        box-sizing: border-box;
     }
     .carousel-track {
         display: flex;
-        flex: 1 1 0%;   /* CLAVE: obliga al track a respetar el ancho del wrapper
-                            en vez de crecer libre y empujar la flecha derecha fuera
-                            de la pantalla */
-        min-width: 0;   /* necesario para que overflow-x funcione dentro de un flex item */
+        flex: 1 1 0%;
+        min-width: 0;
         overflow-x: auto;
         scroll-behavior: smooth;
         gap: 14px;
@@ -136,9 +152,7 @@ st.markdown(
         scrollbar-width: none;
         -ms-overflow-style: none;
     }
-    .carousel-track::-webkit-scrollbar {
-        display: none;
-    }
+    .carousel-track::-webkit-scrollbar { display: none; }
     .netflix-card {
         flex: 0 0 165px;
         background-color: #181818;
@@ -205,9 +219,7 @@ st.markdown(
         display: block;
         transition: background 0.2s;
     }
-    .download-btn:hover {
-        background-color: #f6121d;
-    }
+    .download-btn:hover { background-color: #f6121d; }
     .download-btn.disabled {
         background-color: #3a3a3a;
         color: #888 !important;
@@ -228,11 +240,11 @@ st.markdown(
         flex-shrink: 0;
         transition: background 0.2s;
     }
-    .scroll-btn:hover {
-        background: rgba(229,9,20,0.9);
-    }
+    .scroll-btn:hover { background: rgba(229,9,20,0.9); }
 </style>
+"""
 
+CARRUSEL_JS = """
 <script>
 function scrollCarousel(direction, trackId) {
     const track = document.getElementById(trackId);
@@ -253,9 +265,7 @@ function scrollCarousel(direction, trackId) {
     }
 }
 </script>
-""",
-    unsafe_allow_html=True,
-)
+"""
 
 # =============================================================
 # ESTADO INICIAL
@@ -270,12 +280,11 @@ if "libros" not in st.session_state:
         {"id": 6, "titulo": "Historia e Identidad del Perú", "autor": "Oswaldo Holguín Callo", "portada": "", "drive_id": "1h0gKEvkmeYjkfPs47_46ysffhEXh4PEj", "categoria": "Realidad Nacional"},
         {"id": 7, "titulo": "La nueva corrupción en el Perú", "autor": "Óscar Ugarteche Galarza", "portada": "", "drive_id": "1kRBaRGFcB0UtFu3aRiVL9EOAJmLScidQ", "categoria": "Realidad Nacional"},
         {"id": 8, "titulo": "Nuevo orden", "autor": "Juan José Palacios L.", "portada": "", "drive_id": "1qlOkimhC8zLXCZdRmYoOx6cnM-Ilueom", "categoria": "Realidad Nacional"},
-        # ⚠️ Faltan los enlaces de Drive de estos 4 — quedan como "Archivo no disponible"
-        # hasta que los agregues (drive_id) o los apruebes desde "Panel de Autor".
-        {"id": 9, "titulo": "Oligarquía en el Perú", "autor": "Dennis Gilbert", "portada": "", "drive_id": None, "categoria": "Realidad Nacional"},
-        {"id": 10, "titulo": "Realidad Peruana", "autor": "Abelardo Hurtado, Wadson Pinchi & Norman Coronel", "portada": "", "drive_id": None, "categoria": "Realidad Nacional"},
-        {"id": 11, "titulo": "Sociedad de la información", "autor": "José Antonio Moreiro González", "portada": "", "drive_id": None, "categoria": "Realidad Nacional"},
-        {"id": 12, "titulo": "Sociedad del conocimiento", "autor": "Adriana Marrero", "portada": "", "drive_id": None, "categoria": "Realidad Nacional"},
+        # Antes faltaban estos 4 — ya completados.
+        {"id": 9, "titulo": "Oligarquía en el Perú", "autor": "Dennis Gilbert", "portada": "", "drive_id": "1CA8_C63lZRcP2HoGdQFyVg552vJ2RKO3", "categoria": "Realidad Nacional"},
+        {"id": 10, "titulo": "Realidad Peruana", "autor": "Abelardo Hurtado, Wadson Pinchi & Norman Coronel", "portada": "", "drive_id": "1Buf7l02S0cdnp2I84FilcUz7U7uV7Zmt", "categoria": "Realidad Nacional"},
+        {"id": 11, "titulo": "Sociedad de la información", "autor": "José Antonio Moreiro González", "portada": "", "drive_id": "10FRdSCjI42zGR6CyqTRtFLz-aM4fI_Ed", "categoria": "Realidad Nacional"},
+        {"id": 12, "titulo": "Sociedad del conocimiento", "autor": "Adriana Marrero", "portada": "", "drive_id": "1vssz4OIiQS5o2H9Cb5haRxBjLiwmuFsZ", "categoria": "Realidad Nacional"},
     ]
 
 if "pendientes" not in st.session_state:
@@ -326,6 +335,7 @@ if menu == "Ver Biblioteca":
             if any(l["categoria"] == c for l in libros_filtrados)
         ]
 
+        filas_html = ""
         for idx, categoria in enumerate(categorias_presentes):
             libros_cat = [l for l in libros_filtrados if l["categoria"] == categoria]
             track_id = f"track_{idx}"
@@ -352,9 +362,13 @@ if menu == "Ver Biblioteca":
                         f'download="{escapar(libro.get("archivo", "libro.pdf"))}">📥 Descargar PDF</a>'
                     )
 
+                # onerror: si la miniatura de Google Drive falla en cargar (ocurre a
+                # veces por bloqueo de hotlinking), se reemplaza por la portada por
+                # defecto en vez de mostrar un ícono de imagen rota.
                 cards_html += f"""
                 <div class="netflix-card">
-                    <img src="{img_src}" alt="{titulo}">
+                    <img src="{img_src}" alt="{titulo}"
+                         onerror="this.onerror=null;this.src='{PORTADA_DEFECTO}';">
                     <div class="card-info">
                         <div class="card-title" title="{titulo}">{titulo}</div>
                         <div class="card-author" title="{autor}">Autor: {autor}</div>
@@ -363,21 +377,24 @@ if menu == "Ver Biblioteca":
                 </div>
                 """
 
-            st.markdown(
-                f"""
-                <div class="fila-container">
-                    <div class="fila-titulo">📌 {categoria}</div>
-                    <div class="carousel-wrapper">
-                        <button class="scroll-btn" onclick="scrollCarousel('left', '{track_id}')">❮</button>
-                        <div class="carousel-track" id="{track_id}">
-                            {cards_html}
-                        </div>
-                        <button class="scroll-btn" onclick="scrollCarousel('right', '{track_id}')">❯</button>
+            filas_html += f"""
+            <div class="fila-container">
+                <div class="fila-titulo">📌 {categoria}</div>
+                <div class="carousel-wrapper">
+                    <button class="scroll-btn" onclick="scrollCarousel('left', '{track_id}')">&#10094;</button>
+                    <div class="carousel-track" id="{track_id}">
+                        {cards_html}
                     </div>
+                    <button class="scroll-btn" onclick="scrollCarousel('right', '{track_id}')">&#10095;</button>
                 </div>
-                """,
-                unsafe_allow_html=True,
-            )
+            </div>
+            """
+
+        html_completo = CARRUSEL_CSS + filas_html + CARRUSEL_JS
+        # Altura del iframe: ~330px por fila + margen. scrolling=True actúa como
+        # red de seguridad si el cálculo se queda corto (evita que se corte contenido).
+        altura_estimada = 40 + len(categorias_presentes) * 335
+        components.html(html_completo, height=altura_estimada, scrolling=True)
 
 # -------------------------------------------------------------
 # 2. SUGERIR APORTE
