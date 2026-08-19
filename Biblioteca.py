@@ -272,7 +272,7 @@ function scrollCarousel(direction, trackId) {
 # =============================================================
 if "libros" not in st.session_state:
     st.session_state.libros = [
-        {"id": 1, "titulo": "Brics", "autor": "Dr. C. Roberto Muñoz González & Dr. C. Bonifácio Vissetaca", "portada": "", "drive_id": "1rO9SnsctKcYeXg5mps5XM5x4fJU7wM1W", "categoria": "Realidad Nacional"},
+        {"id": 1, "titulo": "Brics", "autor": "Dr. C. Roberto Muñoz González & Dr. C. Bonifácio Vissetaca", "portada": "", "brics.png": "1rO9SnsctKcYeXg5mps5XM5x4fJU7wM1W", "categoria": "Realidad Nacional"},
         {"id": 2, "titulo": "Capitalismo actual", "autor": "Alejandro Dabat, Jorge Hernández & Canek Vega", "portada": "", "drive_id": "1YcngD-_DMw0qCyKqFjMlNUezoHa6bDPK", "categoria": "Realidad Nacional"},
         {"id": 3, "titulo": "Desigualdad", "autor": "Anastasio Ovejero", "portada": "", "drive_id": "18KcO5reez_VhgWcwRqxU-CwZ09HIS-sd", "categoria": "Realidad Nacional"},
         {"id": 4, "titulo": "El caso del Perú", "autor": "José Matos Mar", "portada": "", "drive_id": "1fKWKrK7Vc4J39qbzYLNHMw6uiKWMyoLU", "categoria": "Realidad Nacional"},
