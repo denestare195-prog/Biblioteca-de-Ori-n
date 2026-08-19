@@ -1,5 +1,6 @@
 import os
 import base64
+import textwrap
 import streamlit as st
 
 # =============================================================
@@ -45,8 +46,7 @@ def obtener_imagen_src(nombre_archivo):
 
 
 def obtener_pdf_href(nombre_archivo):
-    """Devuelve un data-uri para descargar el PDF, o '#' si no aplica.
-    Por seguridad no incrusta archivos más pesados que MAX_PDF_EMBED_MB."""
+    """Devuelve un data-uri para descargar el PDF, o '#' si no aplica."""
     if not nombre_archivo:
         return "#"
     ruta = os.path.join(BOOKS_DIR, nombre_archivo)
@@ -66,8 +66,7 @@ def escapar(texto):
 # =============================================================
 # ESTILOS Y JS (carrusel horizontal estilo Netflix)
 # =============================================================
-st.markdown(
-    """
+st.markdown(textwrap.dedent("""
 <style>
     #MainMenu, footer {visibility: hidden;}
 
@@ -214,9 +213,7 @@ function scrollCarousel(direction, trackId) {
     }
 }
 </script>
-""",
-    unsafe_allow_html=True,
-)
+"""), unsafe_allow_html=True)
 
 # =============================================================
 # ESTADO INICIAL
@@ -240,8 +237,6 @@ if "libros" not in st.session_state:
 if "pendientes" not in st.session_state:
     st.session_state.pendientes = []
 
-# El orden de esta lista es el orden en que se muestran las filas (como Netflix,
-# no alfabético). Nuevas categorías se agregan al final automáticamente.
 if "orden_categorias" not in st.session_state:
     st.session_state.orden_categorias = ["Realidad Nacional"]
 
@@ -266,7 +261,7 @@ menu = st.sidebar.selectbox(
 )
 
 # -------------------------------------------------------------
-# 1. VER BIBLIOTECA (carrusel tipo Netflix)
+# 1. VER BIBLIOTECA
 # -------------------------------------------------------------
 if menu == "Ver Biblioteca":
     busqueda = st.text_input("🔍 Buscar por título o autor", "").strip().lower()
@@ -279,7 +274,6 @@ if menu == "Ver Biblioteca":
     if not libros_filtrados:
         st.warning("No se encontraron libros que coincidan con la búsqueda.")
     else:
-        # Mantenemos el orden curado en session_state, no alfabético
         categorias_presentes = [
             c for c in st.session_state.orden_categorias
             if any(l["categoria"] == c for l in libros_filtrados)
@@ -315,8 +309,7 @@ if menu == "Ver Biblioteca":
                 </div>
                 """
 
-            st.markdown(
-                f"""
+            st.markdown(textwrap.dedent(f"""
                 <div class="fila-container">
                     <div class="fila-titulo">📌 {categoria}</div>
                     <div class="carousel-wrapper">
@@ -327,9 +320,7 @@ if menu == "Ver Biblioteca":
                         <button class="scroll-btn" onclick="scrollCarousel('right', '{track_id}')">❯</button>
                     </div>
                 </div>
-                """,
-                unsafe_allow_html=True,
-            )
+                """), unsafe_allow_html=True)
 
 # -------------------------------------------------------------
 # 2. SUGERIR APORTE
@@ -394,7 +385,7 @@ elif menu == "Panel de Autor":
     if not st.session_state.pendientes:
         st.info("No hay aportes pendientes en este momento. ¡Todo al día!")
     else:
-        for i, aporte in enumerate(list(st.session_state.pendientes)):
+        for aporte in list(st.session_state.pendientes):
             with st.container(border=True):
                 col1, col2, col3 = st.columns([2, 2, 1])
                 with col1:
@@ -405,12 +396,10 @@ elif menu == "Panel de Autor":
                     st.write(f"**Archivo:** {aporte['archivo_nombre']}")
                 with col3:
                     if st.button("✅ Aprobar", key=f"aprobar_{aporte['id']}"):
-                        # Guardar el PDF en disco
                         ruta_pdf = os.path.join(BOOKS_DIR, aporte["archivo_nombre"])
                         with open(ruta_pdf, "wb") as f:
                             f.write(aporte["archivo_bytes"])
 
-                        # Guardar la portada en disco (si se subió)
                         nombre_portada = ""
                         if aporte.get("portada_bytes"):
                             nombre_portada = aporte["portada_nombre"]
