@@ -317,6 +317,17 @@ if "libros" not in st.session_state:
         {"id": 41, "titulo": "Probabilidad e inferencia estadística", "autor": "Rufino Moya C. & Gregorio Saravia A.", "portada": "", "drive_id": "1YcGw3jK-vSqcg6Ksn5V4EF6ESJC8WOig", "categoria": "Estadística"},
         {"id": 42, "titulo": "Procesamiento de datos y análisis utilizando SPSS", "autor": "Maria Belén Castañeda, Alberto F. Cabrera, Yadira Navarro & Wietse de Vries", "portada": "", "drive_id": "1O7EbulQf4RzmzvIfcmdfq0nqbd9juHlc", "categoria": "Estadística"},
         {"id": 43, "titulo": "Estadística aplicada a los negocios y la economía (3.ª ed.)", "autor": "Allen L. Webster", "portada": "", "drive_id": "1gph4sFhogzhVPRfkz4E92cfye_yKFepe", "categoria": "Estadística"},
+        # Categoría: Microeconomía
+        {"id": 44, "titulo": "Análisis microeconómico", "autor": "Hal R. Varian", "portada": "", "drive_id": "177QlcTiEKZmWh_lUWb04RsVsO5Rn0l7s", "categoria": "Microeconomía"},
+        {"id": 45, "titulo": "Microeconomía intermedia (8.ª edición)", "autor": "Hal R. Varian", "portada": "", "drive_id": "1tVkDiHMDsgmxbXObY_KdTsAiZpsgD4qR", "categoria": "Microeconomía"},
+        {"id": 46, "titulo": "Microeconomía intermedia: Un enfoque actual", "autor": "Hal R. Varian", "portada": "", "drive_id": "1LiB9vzwSNoGLpCRDNBkqxG_som1jg1gP", "categoria": "Microeconomía"},
+        {"id": 47, "titulo": "Microeconomía (8.ª edición)", "autor": "Robert S. Pindyck & Daniel L. Rubinfeld", "portada": "", "drive_id": "1PIa-dPTi2hRMYGmMGrjxRKtrPmTUQp2C", "categoria": "Microeconomía"},
+        {"id": 48, "titulo": "Microeconomía para productores", "autor": "Cecilia Garavito Masalías", "portada": "", "drive_id": "12u8E94qey_ElXH7fLNB_WV6hJg-9YtYJ", "categoria": "Microeconomía"},
+        {"id": 49, "titulo": "Microeconomía para Latinoamérica", "autor": "Michael Parkin", "portada": "", "drive_id": "1NKRZY2WoizwQazSQmq6-48VElK3uU5kM", "categoria": "Microeconomía"},
+        {"id": 50, "titulo": "Microeconomía (7.ª edición)", "autor": "Robert S. Pindyck & Daniel L. Rubinfeld", "portada": "", "drive_id": "11ZwsCjMuvQQyZa3D8x0ykhnzNy1oO2Oc", "categoria": "Microeconomía"},
+        {"id": 51, "titulo": "Microeconomía", "autor": "Dominick Salvatore", "portada": "", "drive_id": "1lEDvBY--T0l-upKUZgdJEm91xY0lz-Sk", "categoria": "Microeconomía"},
+        {"id": 52, "titulo": "Teoría microeconómica: Principios básicos y ampliaciones (9.ª ed.)", "autor": "Walter Nicholson", "portada": "", "drive_id": "1A8hQVqmRsLOo542ewYORZN7m60wJCv7S", "categoria": "Microeconomía"},
+        {"id": 53, "titulo": "Teoría microeconómica (11.ª edición)", "autor": "Walter Nicholson & Christopher Snyder", "portada": "", "drive_id": "1B3x8Kfs02EwPqS0t8F7JbYGrwSFQVrZc", "categoria": "Microeconomía"}
 ]
 if "pendientes" not in st.session_state:
     st.session_state.pendientes = []
@@ -324,7 +335,7 @@ if "pendientes" not in st.session_state:
 # El orden de esta lista es el orden en que se muestran las filas (como Netflix,
 # no alfabético). Nuevas categorías se agregan al final automáticamente.
 if "orden_categorias" not in st.session_state:
-    st.session_state.orden_categorias = ["Realidad Nacional", "Economía Política","Estadística"]
+    st.session_state.orden_categorias = ["Realidad Nacional", "Economía Política","Estadística","Microeconomía"]
 
 
 def registrar_categoria(categoria):
