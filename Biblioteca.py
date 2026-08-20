@@ -302,15 +302,29 @@ if "libros" not in st.session_state:
         {"id": 27, "titulo": "Política, Economía y Política Económica", "autor": "Leopoldo Fergusson", "portada": "", "drive_id": "19rndO0jN-Zzi-3qYKH2pUfuORHH9ZjlU", "categoria": "Economía Política"},
         {"id": 28, "titulo": "¿Qué es la democracia?", "autor": "Giovanni Sartori", "portada": "", "drive_id": "1QPBSE3d1wLVTIR8yjZ_Vsbr2PSf4GWPJ", "categoria": "Economía Política"},
         {"id": 29, "titulo": "Routledge Dictionary of Politics", "autor": "David Robertson", "portada": "", "drive_id": "1E8AYdQUq76DEIEjmCMAMAYDQjZJCc5WX", "categoria": "Economía Política"},
-    ]
-
+        # Categoría: Estadística   
+        {"id": 30, "titulo": "Estadística para administración y economía", "autor": "Anderson, Sweeney, Williams", "portada": "", "drive_id": "1O_lMyCxWiXHCdzveMq-eoSiM-EtRANt6", "categoria": "Estadística"},
+        {"id": 31, "titulo": "Ciencia de datos", "autor": "Joel Grus", "portada": "", "drive_id": "1Ymg-Y3naCRfMVohF567Vs6WDpVe_jV9U", "categoria": "Estadística"},
+        {"id": 32, "titulo": "Estadística aplicada a administración y economía", "autor": "Leonard Kazmier & Alfredo Díaz Mata", "portada": "", "drive_id": "1AJtZ6VkaxTo4d33ant3qkVls7rqYkI1m", "categoria": "Estadística"},
+        {"id": 33, "titulo": "Estadística aplicada a los negocios y la economía", "autor": "Douglas A. Lind, William G. Marchal & Samuel A. Wathen", "portada": "", "drive_id": "1o9B4sbe111_MwPyWz2QLWKPOPUSrekjL", "categoria": "Estadística"},
+        {"id": 34, "titulo": "Estadística descriptiva aplicada en Python", "autor": "Marcelo Bernavé Chancusig López, Guido Euclides Yauli Chicaiza, Guadalupe de las Mercedes López Castillo, José Antonio Andrade Valencia & Jhon Eduardo López Velasco", "portada": "", "drive_id": "171ysh9W0c9adGUITjLROjGmDMDKvN3v5", "categoria": "Estadística"},
+        {"id": 35, "titulo": "Estadística para administración y economía", "autor": "Paul Newbold, William L. Carlson & Betty M. Thorne", "portada": "", "drive_id": "16sSIRNsS86JvrTld980BDN2oxmcFmOzo", "categoria": "Estadística"},
+        {"id": 36, "titulo": "Estadística para ingenieros y científicos", "autor": "William Navidi", "portada": "", "drive_id": "1FwUOkxIHUMWMRTtuHBFyVCrd-SPb4G-1", "categoria": "Estadística"},
+        {"id": 37, "titulo": "Un primer vistazo a la probabilidad", "autor": "Hildebrand", "portada": "", "drive_id": "1rHlfIJPxFYJqFzI1zC2Ix0OBwZXWr0cW", "categoria": "Estadística"},
+        {"id": 38, "titulo": "Estadística para administración", "autor": "Levin, Rubin, Banderas del Valle & Gómez", "portada": "", "drive_id": "1ulGQM7eJaWESgY3I2j_Xf2Yr6NOn0AnD", "categoria": "Estadística"},
+        {"id": 39, "titulo": "Manual de estadística aplicada", "autor": "Jorge Córdova Egocheaga", "portada": "", "drive_id": "1Ju5g4NLSUBm300PNqXmTqf67gFXpULqc", "categoria": "Estadística"},
+        {"id": 40, "titulo": "Estadística", "autor": "Mario F. Triola", "portada": "", "drive_id": "1MrGYiXerNsOQzhl5hnBnv9Uc0W2IVxPf", "categoria": "Estadística"},
+        {"id": 41, "titulo": "Probabilidad e inferencia estadística", "autor": "Rufino Moya C. & Gregorio Saravia A.", "portada": "", "drive_id": "1YcGw3jK-vSqcg6Ksn5V4EF6ESJC8WOig", "categoria": "Estadística"},
+        {"id": 42, "titulo": "Procesamiento de datos y análisis utilizando SPSS", "autor": "Maria Belén Castañeda, Alberto F. Cabrera, Yadira Navarro & Wietse de Vries", "portada": "", "drive_id": "1O7EbulQf4RzmzvIfcmdfq0nqbd9juHlc", "categoria": "Estadística"},
+        {"id": 43, "titulo": "Estadística aplicada a los negocios y la economía (3.ª ed.)", "autor": "Allen L. Webster", "portada": "", "drive_id": "1gph4sFhogzhVPRfkz4E92cfye_yKFepe", "categoria": "Estadística"},
+]
 if "pendientes" not in st.session_state:
     st.session_state.pendientes = []
 
 # El orden de esta lista es el orden en que se muestran las filas (como Netflix,
 # no alfabético). Nuevas categorías se agregan al final automáticamente.
 if "orden_categorias" not in st.session_state:
-    st.session_state.orden_categorias = ["Realidad Nacional", "Economía Política"]
+    st.session_state.orden_categorias = ["Realidad Nacional", "Economía Política","Estadística"]
 
 
 def registrar_categoria(categoria):
@@ -326,7 +340,7 @@ def siguiente_id():
 # =============================================================
 # TÍTULO Y MENÚ
 # =============================================================
-st.title("📚 Biblioteca Interactiva de Economía")
+st.title("📚✨ Biblioteca de Orión")
 
 menu = st.sidebar.selectbox(
     "Menú de Navegación", ["Ver Biblioteca", "Sugerir Aporte", "Panel de Autor"]
