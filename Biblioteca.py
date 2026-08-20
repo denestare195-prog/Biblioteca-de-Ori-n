@@ -280,30 +280,29 @@ if "libros" not in st.session_state:
         {"id": 6, "titulo": "Historia e Identidad del Perú", "autor": "Oswaldo Holguín Callo", "portada": "", "drive_id": "1h0gKEvkmeYjkfPs47_46ysffhEXh4PEj", "categoria": "Realidad Nacional"},
         {"id": 7, "titulo": "La nueva corrupción en el Perú", "autor": "Óscar Ugarteche Galarza", "portada": "", "drive_id": "1kRBaRGFcB0UtFu3aRiVL9EOAJmLScidQ", "categoria": "Realidad Nacional"},
         {"id": 8, "titulo": "Nuevo orden", "autor": "Juan José Palacios L.", "portada": "", "drive_id": "1qlOkimhC8zLXCZdRmYoOx6cnM-Ilueom", "categoria": "Realidad Nacional"},
-        # Antes faltaban estos 4 — ya completados.
         {"id": 9, "titulo": "Oligarquía en el Perú", "autor": "Dennis Gilbert", "portada": "", "drive_id": "1CA8_C63lZRcP2HoGdQFyVg552vJ2RKO3", "categoria": "Realidad Nacional"},
         {"id": 10, "titulo": "Realidad Peruana", "autor": "Abelardo Hurtado, Wadson Pinchi & Norman Coronel", "portada": "", "drive_id": "1Buf7l02S0cdnp2I84FilcUz7U7uV7Zmt", "categoria": "Realidad Nacional"},
         {"id": 11, "titulo": "Sociedad de la información", "autor": "José Antonio Moreiro González", "portada": "", "drive_id": "10FRdSCjI42zGR6CyqTRtFLz-aM4fI_Ed", "categoria": "Realidad Nacional"},
         {"id": 12, "titulo": "Sociedad del conocimiento", "autor": "Adriana Marrero", "portada": "", "drive_id": "1vssz4OIiQS5o2H9Cb5haRxBjLiwmuFsZ", "categoria": "Realidad Nacional"},
+        # Categoría: Economía Política
+        {"id": 13, "titulo": "El arte de la manipulación política", "autor": "Josep M. Colomer", "portada": "", "drive_id": "10cdSfPGQsvlMvTy6fKKmeUlYQosY8SX4", "categoria": "Economía Política"},
+        {"id": 14, "titulo": "Democracia y participación", "autor": "Boaventura de Sousa Santos", "portada": "", "drive_id": "1KTSn63XwP7D3CoGDOCzLIC3vdgX6a6hC", "categoria": "Economía Política"},
+        {"id": 15, "titulo": "Derecha e Izquierda: Razones y Significados de una Distinción", "autor": "Norberto Bobbio", "portada": "", "drive_id": "1k1eCfIu6a2Ar4v7OWYuKOFN6_oiadZvo", "categoria": "Economía Política"},
+        {"id": 16, "titulo": "El Político y El Científico", "autor": "Max Weber", "portada": "", "drive_id": "1sCPyplbyr2Y_1DnKlwP-vkv18CUAK7v2", "categoria": "Economía Política"},
+        {"id": 17, "titulo": "Ensayos de Mercadotecnia Política", "autor": "Pedro Barrientos Felipa", "portada": "", "drive_id": "1EBf8Iqtl8rnJyCwO2ORLASReAkEbJwbj", "categoria": "Economía Política"},
+        {"id": 18, "titulo": "Gramsci", "autor": "Gramsci", "portada": "", "drive_id": "1oE82b6_vTquHjWQJIwd3m_7yHHKXDAxe", "categoria": "Economía Política"},
+        {"id": 19, "titulo": "Historia y ciencias políticas", "autor": "Luis Alberto de la Garza", "portada": "", "drive_id": "10cA6A_ecG5IY2Oz8MGf_cFCVm4-pLW1w", "categoria": "Economía Política"},
+        {"id": 20, "titulo": "La isla de los pingüinos", "autor": "Anatole France", "portada": "", "drive_id": "1M9ovCb1mOyv7QCb3V0X284t-mGU-9iQP", "categoria": "Economía Política"},
+        {"id": 21, "titulo": "La política por dentro", "autor": "Rafael Roncagliolo & Carlos Meléndez", "portada": "", "drive_id": "134KIes4ZG1RhyAyEHcWCV1pWAcrdHOys", "categoria": "Economía Política"},
+        {"id": 22, "titulo": "La Teoría de las Formas de Gobierno en la historia del pensamiento político", "autor": "Norberto Bobbio", "portada": "", "drive_id": "1qZtR1B0-q3HJvdVJfEQbXNj2B9O43IST", "categoria": "Economía Política"},
+        {"id": 23, "titulo": "Manual de Campaña - Teoría y práctica de la persuasión electoral", "autor": "Mario Martínez Silva & Roberto Salcedo Aquino", "portada": "", "drive_id": "1z3PJhNd3MVyde85DGiJbFT2tt4ydWyFM", "categoria": "Economía Política"},
+        {"id": 24, "titulo": "Manual de Ciencias Políticas", "autor": "Juan Manuel Abal Medina", "portada": "", "drive_id": "13Y_FCvhsuwhAqRc19Jk1rYAytZlpkofQ", "categoria": "Economía Política"},
+        {"id": 25, "titulo": "Manual de Ciencia Política", "autor": "Miquel Caminal Badia", "portada": "", "drive_id": "1KaARp9Jns0Tc73HX0IV8kfte99XXDEAB", "categoria": "Economía Política"},
+        {"id": 26, "titulo": "Manual de introducción a la ciencia política", "autor": "José Cazorla Pérez", "portada": "", "drive_id": "11fZJAjc26uUmIc7GKbLuoDhmTLvT4Lij", "categoria": "Economía Política"},
+        {"id": 27, "titulo": "Política, Economía y Política Económica", "autor": "Leopoldo Fergusson", "portada": "", "drive_id": "19rndO0jN-Zzi-3qYK2pUfuORHH9ZjlU", "categoria": "Economía Política"},
+        {"id": 28, "titulo": "¿Qué es la democracia?", "autor": "Giovanni Sartori", "portada": "", "drive_id": "1QPBSE3d1wLVTIR8yjZ_Vsbr2PSf4GWPJ", "categoria": "Economía Política"},
+        {"id": 29, "titulo": "Routledge Dictionary of Politics", "autor": "David Robertson", "portada": "", "drive_id": "1E8AYdQUq76DEIEjmCMAMAYDQjZJCc5WX", "categoria": "Economía Política"},
     ]
-    # Categoría: Economía Política
-    {"id": 13, "titulo": "El arte de la manipulación política", "autor": "Josep M. Colomer", "portada": "", "drive_id": "10cdSfPGQsvlMvTy6fKKmeUlYQosY8SX4", "categoria": "Economía Política"},
-    {"id": 14, "titulo": "Democracia y participación", "autor": "Boaventura de Sousa Santos", "portada": "", "drive_id": "1KTSn63XwP7D3CoGDOCzLIC3vdgX6a6hC", "categoria": "Economía Política"},
-    {"id": 15, "titulo": "Derecha e Izquierda: Razones y Significados de una Distinción", "autor": "Norberto Bobbio", "portada": "", "drive_id": "1k1eCfIu6a2Ar4v7OWYuKOFN6_oiadZvo", "categoria": "Economía Política"},
-    {"id": 16, "titulo": "El Político y El Científico", "autor": "Max Weber", "portada": "", "drive_id": "1sCPyplbyr2Y_1DnKlwP-vkv18CUAK7v2", "categoria": "Economía Política"},
-    {"id": 17, "titulo": "Ensayos de Mercadotecnia Política", "autor": "Pedro Barrientos Felipa", "portada": "", "drive_id": "1EBf8Iqtl8rnJyCwO2ORLASReAkEbJwbj", "categoria": "Economía Política"},
-    {"id": 18, "titulo": "Gramsci", "autor": "Gramsci", "portada": "", "drive_id": "1oE82b6_vTquHjWQJIwd3m_7yHHKXDAxe", "categoria": "Economía Política"},
-    {"id": 19, "titulo": "Historia y ciencias políticas", "autor": "Luis Alberto de la Garza", "portada": "", "drive_id": "10cA6A_ecG5IY2Oz8MGf_cFCVm4-pLW1w", "categoria": "Economía Política"},
-    {"id": 20, "titulo": "La isla de los pingüinos", "autor": "Anatole France", "portada": "", "drive_id": "1M9ovCb1mOyv7QCb3V0X284t-mGU-9iQP", "categoria": "Economía Política"},
-    {"id": 21, "titulo": "La política por dentro", "autor": "Rafael Roncagliolo & Carlos Meléndez", "portada": "", "drive_id": "134KIes4ZG1RhyAyEHcWCV1pWAcrdHOys", "categoria": "Economía Política"},
-    {"id": 22, "titulo": "La Teoría de las Formas de Gobierno en la historia del pensamiento político", "autor": "Norberto Bobbio", "portada": "", "drive_id": "1qZtR1B0-q3HJvdVJfEQbXNj2B9O43IST", "categoria": "Economía Política"},
-    {"id": 23, "titulo": "Manual de Campaña - Teoría y práctica de la persuasión electoral", "autor": "Mario Martínez Silva & Roberto Salcedo Aquino", "portada": "", "drive_id": "1z3PJhNd3MVyde85DGiJbFT2tt4ydWyFM", "categoria": "Economía Política"},
-    {"id": 24, "titulo": "Manual de Ciencias Políticas", "autor": "Juan Manuel Abal Medina", "portada": "", "drive_id": "13Y_FCvhsuwhAqRc19Jk1rYAytZlpkofQ", "categoria": "Economía Política"},
-    {"id": 25, "titulo": "Manual de Ciencia Política", "autor": "Miquel Caminal Badia", "portada": "", "drive_id": "1KaARp9Jns0Tc73HX0IV8kfte99XXDEAB", "categoria": "Economía Política"},
-    {"id": 26, "titulo": "Manual de introducción a la ciencia política", "autor": "José Cazorla Pérez", "portada": "", "drive_id": "11fZJAjc26uUmIc7GKbLuoDhmTLvT4Lij", "categoria": "Economía Política"},
-    {"id": 27, "titulo": "Política, Economía y Política Económica", "autor": "Leopoldo Fergusson", "portada": "", "drive_id": "19rndO0jN-Zzi-3qYKH2pUfuORHH9ZjlU", "categoria": "Economía Política"},
-    {"id": 28, "titulo": "¿Qué es la democracia?", "autor": "Giovanni Sartori", "portada": "", "drive_id": "1QPBSE3d1wLVTIR8yjZ_Vsbr2PSf4GWPJ", "categoria": "Economía Política"},
-    {"id": 29, "titulo": "Routledge Dictionary of Politics", "autor": "David Robertson", "portada": "", "drive_id": "1E8AYdQUq76DEIEjmCMAMAYDQjZJCc5WX", "categoria": "Economía Política"},
 
 if "pendientes" not in st.session_state:
     st.session_state.pendientes = []
@@ -311,7 +310,7 @@ if "pendientes" not in st.session_state:
 # El orden de esta lista es el orden en que se muestran las filas (como Netflix,
 # no alfabético). Nuevas categorías se agregan al final automáticamente.
 if "orden_categorias" not in st.session_state:
-    st.session_state.orden_categorias = ["Economía Política","Realidad Nacional"]
+    st.session_state.orden_categorias = ["Realidad Nacional", "Economía Política"]
 
 
 def registrar_categoria(categoria):
