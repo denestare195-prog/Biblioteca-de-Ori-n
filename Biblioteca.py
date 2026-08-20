@@ -322,7 +322,7 @@ if "libros" not in st.session_state:
         {"id": 45, "titulo": "Microeconomía intermedia (8.ª edición)", "autor": "Hal R. Varian", "portada": "", "drive_id": "1tVkDiHMDsgmxbXObY_KdTsAiZpsgD4qR", "categoria": "Microeconomía"},
         {"id": 46, "titulo": "Microeconomía intermedia: Un enfoque actual", "autor": "Hal R. Varian", "portada": "", "drive_id": "1LiB9vzwSNoGLpCRDNBkqxG_som1jg1gP", "categoria": "Microeconomía"},
         {"id": 47, "titulo": "Microeconomía (8.ª edición)", "autor": "Robert S. Pindyck & Daniel L. Rubinfeld", "portada": "", "drive_id": "1PIa-dPTi2hRMYGmMGrjxRKtrPmTUQp2C", "categoria": "Microeconomía"},
-        {"id": 48, "titulo": "Microeconomía para productores", "autor": "Cecilia Garavito Masalías", "portada": "", "drive_id": "12u8E94qey_ElXH7fLNB_WV6hJg-9YtYJ", "categoria": "Microeconomía"},
+        {"id": 48, "titulo": "Microeconomía para productores", "autor": "Cecilia Garavito Masalías", "portada": "", "drive_id": "11ZwsCjMuvQQyZa3D8x0ykhnzNy1oO2Oc", "categoria": "Microeconomía"},
         {"id": 49, "titulo": "Microeconomía para Latinoamérica", "autor": "Michael Parkin", "portada": "", "drive_id": "12u8E94qey_ElXH7fLNB_WV6hJg-9YtYJ", "categoria": "Microeconomía"},
         {"id": 50, "titulo": "Microeconomía (7.ª edición)", "autor": "Robert S. Pindyck & Daniel L. Rubinfeld", "portada": "", "drive_id": "11ZwsCjMuvQQyZa3D8x0ykhnzNy1oO2Oc", "categoria": "Microeconomía"},
         {"id": 51, "titulo": "Microeconomía", "autor": "Dominick Salvatore", "portada": "", "drive_id": "1lEDvBY--T0l-upKUZgdJEm91xY0lz-Sk", "categoria": "Microeconomía"},
