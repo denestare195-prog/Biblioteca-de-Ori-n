@@ -299,7 +299,7 @@ if "libros" not in st.session_state:
         {"id": 24, "titulo": "Manual de Ciencias Políticas", "autor": "Juan Manuel Abal Medina", "portada": "", "drive_id": "13Y_FCvhsuwhAqRc19Jk1rYAytZlpkofQ", "categoria": "Economía Política"},
         {"id": 25, "titulo": "Manual de Ciencia Política", "autor": "Miquel Caminal Badia", "portada": "", "drive_id": "1KaARp9Jns0Tc73HX0IV8kfte99XXDEAB", "categoria": "Economía Política"},
         {"id": 26, "titulo": "Manual de introducción a la ciencia política", "autor": "José Cazorla Pérez", "portada": "", "drive_id": "11fZJAjc26uUmIc7GKbLuoDhmTLvT4Lij", "categoria": "Economía Política"},
-        {"id": 27, "titulo": "Política, Economía y Política Económica", "autor": "Leopoldo Fergusson", "portada": "", "drive_id": "19rndO0jN-Zzi-3qYK2pUfuORHH9ZjlU", "categoria": "Economía Política"},
+        {"id": 27, "titulo": "Política, Economía y Política Económica", "autor": "Leopoldo Fergusson", "portada": "", "drive_id": "19rndO0jN-Zzi-3qYKH2pUfuORHH9ZjlU", "categoria": "Economía Política"},
         {"id": 28, "titulo": "¿Qué es la democracia?", "autor": "Giovanni Sartori", "portada": "", "drive_id": "1QPBSE3d1wLVTIR8yjZ_Vsbr2PSf4GWPJ", "categoria": "Economía Política"},
         {"id": 29, "titulo": "Routledge Dictionary of Politics", "autor": "David Robertson", "portada": "", "drive_id": "1E8AYdQUq76DEIEjmCMAMAYDQjZJCc5WX", "categoria": "Economía Política"},
     ]
