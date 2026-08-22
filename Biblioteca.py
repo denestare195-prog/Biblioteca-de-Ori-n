@@ -98,29 +98,42 @@ def escapar(texto):
 
 
 # =============================================================
-# ESTILOS GENERALES (sin JS — esto sí puede ir por st.markdown)
+# ESTILOS GENERALES Y CONFIGURACIÓN DE FONDO
 # =============================================================
-# =============================================================
-# ESTILOS GENERALES (sin JS — esto sí puede ir por st.markdown)
-# =============================================================
+def obtener_fondo_base64():
+    """Busca y codifica la imagen de fondo en base64."""
+    rutas_posibles = [
+        os.path.join(BASE_DIR, "assets", "fondo de orion.avif"),
+        os.path.join(BASE_DIR, "fondo de orion.avif")
+    ]
+    for ruta in rutas_posibles:
+        if os.path.exists(ruta):
+            b64 = archivo_a_base64(ruta)
+            if b64:
+                return f'background-image: url("data:image/avif;base64,{b64}");'
+    return 'background-color: #0e1117;'  # Respaldo por si no se encuentra
+
+estilo_fondo_css = obtener_fondo_base64()
+
 st.markdown(
-    """
+    f"""
 <style>
     /* Ocultar menú y footer */
-    #MainMenu, footer {visibility: hidden;}
+    #MainMenu, footer {{visibility: hidden;}}
 
     /* APLICAR TEXTURA O IMAGEN DE FONDO */
-    .stApp {
-        background-image: url(https://drive.google.com/file/d/1nP-PeFYa2XQ2Ds4gtrSlU8X1FZ-IQcSE/view?usp=drive_link);
+    .stApp {{
+        {estilo_fondo_css}
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-    }
+        background-attachment: fixed;
+    }}
 
-    /* Opcional: Darle transparencia al sidebar para que luzca la textura de fondo */
-    [data-testid="stSidebar"] {
-        background-color: rgba(22, 24, 29, 0.85); /* Ajusta la opacidad a tu gusto */
-    }
+    /* Opcional: Darle transparencia al sidebar para que luzca la textura */
+    [data-testid="stSidebar"] {{
+        background-color: rgba(22, 24, 29, 0.85);
+    }}
 </style>
 """,
     unsafe_allow_html=True,
