@@ -100,15 +100,31 @@ def escapar(texto):
 # =============================================================
 # ESTILOS GENERALES (sin JS — esto sí puede ir por st.markdown)
 # =============================================================
+# =============================================================
+# ESTILOS GENERALES (sin JS — esto sí puede ir por st.markdown)
+# =============================================================
 st.markdown(
     """
 <style>
+    /* Ocultar menú y footer */
     #MainMenu, footer {visibility: hidden;}
+
+    /* APLICAR TEXTURA O IMAGEN DE FONDO */
+    .stApp {
+        background-image: url(https://drive.google.com/file/d/1nP-PeFYa2XQ2Ds4gtrSlU8X1FZ-IQcSE/view?usp=drive_link);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    /* Opcional: Darle transparencia al sidebar para que luzca la textura de fondo */
+    [data-testid="stSidebar"] {
+        background-color: rgba(22, 24, 29, 0.85); /* Ajusta la opacidad a tu gusto */
+    }
 </style>
 """,
     unsafe_allow_html=True,
 )
-
 # =============================================================
 # CARRUSEL ESTILO NETFLIX
 #
