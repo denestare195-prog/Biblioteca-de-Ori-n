@@ -285,7 +285,7 @@ if "libros" not in st.session_state:
         {"id": 11, "titulo": "Sociedad de la información", "autor": "José Antonio Moreiro González", "portada": "", "drive_id": "10FRdSCjI42zGR6CyqTRtFLz-aM4fI_Ed", "categoria": "Realidad Nacional"},
         {"id": 12, "titulo": "Sociedad del conocimiento", "autor": "Adriana Marrero", "portada": "", "drive_id": "1vssz4OIiQS5o2H9Cb5haRxBjLiwmuFsZ", "categoria": "Realidad Nacional"},
         # Categoría: Economía Política
-        {"id": 13, "titulo": "El arte de la manipulación política", "autor": "Josep M. Colomer", "portada": "", "drive_id": "10cdSfPGQsvlMvTy6fKKmeUlYQosY8SX4", "categoria": "Economía Política"},
+        {"id": 13, "titulo": "El arte de la manipulación política", "autor": "Josep M. Colomer", "portada": "", "drive_id": "13PcyuJ5_dbwxhD0-FHtOTpf1PN8DNOrv", "categoria": "Economía Política"},
         {"id": 14, "titulo": "Democracia y participación", "autor": "Boaventura de Sousa Santos", "portada": "", "drive_id": "1KTSn63XwP7D3CoGDOCzLIC3vdgX6a6hC", "categoria": "Economía Política"},
         {"id": 15, "titulo": "Derecha e Izquierda: Razones y Significados de una Distinción", "autor": "Norberto Bobbio", "portada": "", "drive_id": "1k1eCfIu6a2Ar4v7OWYuKOFN6_oiadZvo", "categoria": "Economía Política"},
         {"id": 16, "titulo": "El Político y El Científico", "autor": "Max Weber", "portada": "", "drive_id": "1sCPyplbyr2Y_1DnKlwP-vkv18CUAK7v2", "categoria": "Economía Política"},
@@ -324,7 +324,7 @@ if "libros" not in st.session_state:
         {"id": 47, "titulo": "Microeconomía (8.ª edición)", "autor": "Robert S. Pindyck & Daniel L. Rubinfeld", "portada": "", "drive_id": "1PIa-dPTi2hRMYGmMGrjxRKtrPmTUQp2C", "categoria": "Microeconomía"},
         {"id": 48, "titulo": "Microeconomía para productores", "autor": "Cecilia Garavito Masalías", "portada": "", "drive_id": "11ZwsCjMuvQQyZa3D8x0ykhnzNy1oO2Oc", "categoria": "Microeconomía"},
         {"id": 49, "titulo": "Microeconomía para Latinoamérica", "autor": "Michael Parkin", "portada": "", "drive_id": "12u8E94qey_ElXH7fLNB_WV6hJg-9YtYJ", "categoria": "Microeconomía"},
-        {"id": 50, "titulo": "Microeconomía (7.ª edición)", "autor": "Robert S. Pindyck & Daniel L. Rubinfeld", "portada": "", "drive_id": "11ZwsCjMuvQQyZa3D8x0ykhnzNy1oO2Oc", "categoria": "Microeconomía"},
+        {"id": 50, "titulo": "Microeconomía (7.ª edición)", "autor": "Robert S. Pindyck & Daniel L. Rubinfeld", "portada": "", "drive_id": "1PIa-dPTi2hRMYGmMGrjxRKtrPmTUQp2C", "categoria": "Microeconomía"},
         {"id": 51, "titulo": "Microeconomía", "autor": "Dominick Salvatore", "portada": "", "drive_id": "1lEDvBY--T0l-upKUZgdJEm91xY0lz-Sk", "categoria": "Microeconomía"},
         {"id": 52, "titulo": "Teoría microeconómica: Principios básicos y ampliaciones (9.ª ed.)", "autor": "Walter Nicholson", "portada": "", "drive_id": "1A8hQVqmRsLOo542ewYORZN7m60wJCv7S", "categoria": "Microeconomía"},
         {"id": 53, "titulo": "Teoría microeconómica (11.ª edición)", "autor": "Walter Nicholson & Christopher Snyder", "portada": "", "drive_id": "1B3x8Kfs02EwPqS0t8F7JbYGrwSFQVrZc", "categoria": "Microeconomía"}
