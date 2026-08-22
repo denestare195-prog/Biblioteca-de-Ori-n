@@ -103,8 +103,8 @@ def escapar(texto):
 def obtener_fondo_base64():
     """Busca y codifica la imagen de fondo en base64."""
     rutas_posibles = [
-        os.path.join(BASE_DIR, "assets", "fondo de orion.avif"),
-        os.path.join(BASE_DIR, "fondo de orion.avif")
+        os.path.join(BASE_DIR, "assets", "orion.avif"),
+        os.path.join(BASE_DIR, "orion.avif")
     ]
     for ruta in rutas_posibles:
         if os.path.exists(ruta):
